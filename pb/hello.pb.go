@@ -76,7 +76,7 @@ func (x *HelloReq) GetName() string {
 type HelloReply struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// @inject_tag: json:"message"
-	Message       string `protobuf:"bytes,2,opt,name=message,proto3" json:"message"`
+	Message       string `protobuf:"bytes,1,opt,name=message,proto3" json:"message"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -127,7 +127,7 @@ const file_hello_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"&\n" +
 	"\n" +
 	"HelloReply\x12\x18\n" +
-	"\amessage\x18\x02 \x01(\tR\amessage2Q\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2Q\n" +
 	"\aGreeter\x12F\n" +
 	"\bSayHello\x12\x0f.Hello.HelloReq\x1a\x11.Hello.HelloReply\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/say/{name}B\aZ\x05./;pbb\x06proto3"
 

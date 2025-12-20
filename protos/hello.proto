@@ -31,5 +31,5 @@ message HelloReq {
 // 定义服务端响应的数据格式
 message HelloReply {
     // @inject_tag: json:"message"
-    string message = 2;
+    string message = 1;
 }

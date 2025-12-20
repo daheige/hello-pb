@@ -14,7 +14,7 @@ pub struct HelloReq {
 #[derive(Clone, PartialEq, Eq, Hash, ::prost::Message, serde::Serialize, serde::Deserialize)]
 pub struct HelloReply {
     /// @inject_tag: json:"message"
-    #[prost(string, tag = "2")]
+    #[prost(string, tag = "1")]
     pub message: ::prost::alloc::string::String,
 }
 /// Generated client implementations.

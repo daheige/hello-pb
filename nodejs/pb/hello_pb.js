@@ -229,7 +229,7 @@ proto.Hello.HelloReply.prototype.toObject = function(opt_includeInstance) {
  */
 proto.Hello.HelloReply.toObject = function(includeInstance, msg) {
   var f, obj = {
-    message: jspb.Message.getFieldWithDefault(msg, 2, "")
+    message: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -266,7 +266,7 @@ proto.Hello.HelloReply.deserializeBinaryFromReader = function(msg, reader) {
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 2:
+    case 1:
       var value = /** @type {string} */ (reader.readString());
       msg.setMessage(value);
       break;
@@ -302,7 +302,7 @@ proto.Hello.HelloReply.serializeBinaryToWriter = function(message, writer) {
   f = message.getMessage();
   if (f.length > 0) {
     writer.writeString(
-      2,
+      1,
       f
     );
   }
@@ -310,11 +310,11 @@ proto.Hello.HelloReply.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional string message = 2;
+ * optional string message = 1;
  * @return {string}
  */
 proto.Hello.HelloReply.prototype.getMessage = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
@@ -323,7 +323,7 @@ proto.Hello.HelloReply.prototype.getMessage = function() {
  * @return {!proto.Hello.HelloReply} returns this
  */
 proto.Hello.HelloReply.prototype.setMessage = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
