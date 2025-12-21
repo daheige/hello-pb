@@ -31,7 +31,7 @@ export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
-这里也可以使用rsproxy代理
+这里也可以使用rsproxy代理(建议跟`~/.cargo/config.toml`文件中的`replace-with`配置保持一致)，这里我使用的是`ustc`镜像源
 ```shell
 export RUSTUP_DIST_SERVER="https://rsproxy.cn"
 export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
@@ -44,7 +44,7 @@ export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
 # 指定镜像，这里可以根据实际情况选择不同的镜像
 replace-with = 'ustc'
 
-# 字节跳动的rsproxy
+# 字节跳动的rsproxy，指定方式，只需要调整 [source.crates-io] 下面的 `replace-with = 'rsproxy-sparse'` 或 `replace-with = 'rsproxy'`
 [source.rsproxy]
 registry = "https://rsproxy.cn/crates.io-index"
 [source.rsproxy-sparse]
@@ -69,7 +69,7 @@ registry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index"
 [source.rustcc]
 registry = "git://crates.rustcc.cn/crates.io-index"
 
-# xuanwu社区，指定方式，只需要调整 [source.crates-io] 下面的 replace-with = 'xuanwu-sparse' 即可
+# xuanwu社区，指定方式，只需要调整 [source.crates-io] 下面的 `replace-with = 'xuanwu-sparse'` 即可
 [source.xuanwu]
 registry = "https://mirror.xuanwu.openatom.cn/crates.io-index"
 [source.xuanwu-sparse]
