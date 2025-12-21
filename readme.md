@@ -3,7 +3,7 @@
 
 # tools installation before development
 1. 进入 https://go.dev/dl/ 官方网站，根据系统安装不同的go版本，这里推荐在linux或mac系统上面安装go。
-2. 设置GOPROXY
+2. 设置Go GOPROXY 环境变量
 ```shell
 go env -w GOPROXY=https://goproxy.cn,direct
 ```
@@ -22,6 +22,11 @@ export PATH=~/.local/bin:$PATH # Add this to your `~/.bashrc`.
 protoc --version
 libprotoc 3.15.8
 ```
+4. 执行如下命令安装rust
+```shell
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+5. 根据操作系统类型，在 https://nodejs.org/zh-cn/download 下载并安装nodejs
 
 # gen pb code
 1. 先执行如下命令安装必要的go tools
@@ -38,6 +43,7 @@ sh bin/go-generate.sh
 或者直接执行`make gen`生成Go/nodejs/rust对应的pb代码(需要提前安装好rust)
 
 # gen pb code in docker
+执行如下命令，构建pb docker镜像和容器运行
 ```shell
 make build-dev
 make build && make run
