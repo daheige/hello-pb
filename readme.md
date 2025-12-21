@@ -24,8 +24,65 @@ libprotoc 3.15.8
 ```
 4. 执行如下命令安装rust
 ```shell
+# 下面两个环境变量，建议放在 ~/.bash_profile 或 ~/.bashrc 文件中
+# 然后执行 source ~/.bash_profile 或 source ~/.bashrc 生效
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+这里也可以使用rsproxy代理
+```shell
+export RUSTUP_DIST_SERVER="https://rsproxy.cn"
+export RUSTUP_UPDATE_ROOT="https://rsproxy.cn/rustup"
+```
+
+通过 vim ~/.cargo/config.toml 文件添加如下内容：
+```toml
+[source.crates-io]
+#registry = "https://github.com/rust-lang/crates.io-index"
+# 指定镜像，这里可以根据实际情况选择不同的镜像
+replace-with = 'ustc'
+
+# 字节跳动的rsproxy
+[source.rsproxy]
+registry = "https://rsproxy.cn/crates.io-index"
+[source.rsproxy-sparse]
+registry = "sparse+https://rsproxy.cn/index/"
+
+[registries.rsproxy]
+index = "https://rsproxy.cn/crates.io-index"
+
+# 清华大学
+[source.tuna]
+registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
+
+# 中国科学技术大学
+[source.ustc]
+registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
+
+# 上海交通大学
+[source.sjtu]
+registry = "https://mirrors.sjtug.sjtu.edu.cn/git/crates.io-index"
+
+# rustcc社区
+[source.rustcc]
+registry = "git://crates.rustcc.cn/crates.io-index"
+
+# xuanwu社区，指定方式，只需要调整 [source.crates-io] 下面的 replace-with = 'xuanwu-sparse' 即可
+[source.xuanwu]
+registry = "https://mirror.xuanwu.openatom.cn/crates.io-index"
+[source.xuanwu-sparse]
+registry = "sparse+https://mirror.xuanwu.openatom.cn/index/"
+[registries.xuanwu]
+index = "https://mirror.xuanwu.openatom.cn/crates.io-index"
+
+[net]
+git-fetch-with-cli=true
+[http]
+check-revoke = false
+```
+
 5. 根据操作系统类型，在 https://nodejs.org/zh-cn/download 下载并安装nodejs
 
 # gen pb code
