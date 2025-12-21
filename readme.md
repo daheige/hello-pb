@@ -11,6 +11,8 @@ go env -w GOPROXY=https://goproxy.cn,direct
 3. 安装protoc工具
 - mac系统安装方式如下：
 ```shell
+brew install automake
+brew install libtool
 brew install protobuf
 ```
 - linux系统安装方式如下：
