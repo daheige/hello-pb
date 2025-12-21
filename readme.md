@@ -1,5 +1,6 @@
 # grpc pb code gen
-一般来说，生成的pb代码，建议放在独立git仓库中，方便集中式管理和维护，例如：https://github.com/daheige/hello-pb
+- 一般来说，生成的pb代码，建议放在独立git仓库中，方便集中式管理和维护，例如：https://github.com/daheige/hello-pb
+- 微服务具体使用方式见：https://github.com/daheige/hephfx-micro-svc
 
 # tools installation before development
 1. 进入 https://go.dev/dl/ 官方网站，根据系统安装不同的go版本，这里推荐在linux或mac系统上面安装go。
