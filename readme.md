@@ -27,13 +27,15 @@ libprotoc 3.15.8
 1. 先执行如下命令安装必要的go tools
 ```shell
 sh bin/grpc_tools.sh
+# 如果本机安装了nodejs，可以执行如下命令，安装nodejs grpc 工具链
+sh bin/node-grpc-tools.sh
 ```
 
 2. 执行如下命令实现go代码生成
 ```shell
 sh bin/go-generate.sh
 ```
-或者直接执行`make gen`生成Go/nodejs/rust对应的pb代码
+或者直接执行`make gen`生成Go/nodejs/rust对应的pb代码(需要提前安装好rust)
 
 # gen pb code in docker
 ```shell
