@@ -11,11 +11,26 @@ import "google/api/annotations.proto";
 
 // Greeter service 定义开放调用的服务
 service Greeter {
+    rpc Healthz(HealthzReq) returns (HealthzReply) {
+        option (google.api.http) = {
+            get: "/v1/healthz"
+        };
+    }
+
     rpc SayHello (HelloReq) returns (HelloReply){
         option (google.api.http) = {
             get: "/v1/say/{name}"
         };
     };
+}
+
+message HealthzReq {
+    string request_id = 1;
+}
+
+message HealthzReply {
+    string current_time = 1;
+    bool alive = 2;
 }
 
 // message 对应生成代码的 struct

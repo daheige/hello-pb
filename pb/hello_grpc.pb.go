@@ -19,6 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
+	Greeter_Healthz_FullMethodName  = "/Hello.Greeter/Healthz"
 	Greeter_SayHello_FullMethodName = "/Hello.Greeter/SayHello"
 )
 
@@ -28,6 +29,7 @@ const (
 //
 // Greeter service 定义开放调用的服务
 type GreeterClient interface {
+	Healthz(ctx context.Context, in *HealthzReq, opts ...grpc.CallOption) (*HealthzReply, error)
 	SayHello(ctx context.Context, in *HelloReq, opts ...grpc.CallOption) (*HelloReply, error)
 }
 
@@ -37,6 +39,16 @@ type greeterClient struct {
 
 func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
 	return &greeterClient{cc}
+}
+
+func (c *greeterClient) Healthz(ctx context.Context, in *HealthzReq, opts ...grpc.CallOption) (*HealthzReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(HealthzReply)
+	err := c.cc.Invoke(ctx, Greeter_Healthz_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *greeterClient) SayHello(ctx context.Context, in *HelloReq, opts ...grpc.CallOption) (*HelloReply, error) {
@@ -55,6 +67,7 @@ func (c *greeterClient) SayHello(ctx context.Context, in *HelloReq, opts ...grpc
 //
 // Greeter service 定义开放调用的服务
 type GreeterServer interface {
+	Healthz(context.Context, *HealthzReq) (*HealthzReply, error)
 	SayHello(context.Context, *HelloReq) (*HelloReply, error)
 	mustEmbedUnimplementedGreeterServer()
 }
@@ -66,6 +79,9 @@ type GreeterServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGreeterServer struct{}
 
+func (UnimplementedGreeterServer) Healthz(context.Context, *HealthzReq) (*HealthzReply, error) {
+	return nil, status.Error(codes.Unimplemented, "method Healthz not implemented")
+}
 func (UnimplementedGreeterServer) SayHello(context.Context, *HelloReq) (*HelloReply, error) {
 	return nil, status.Error(codes.Unimplemented, "method SayHello not implemented")
 }
@@ -88,6 +104,24 @@ func RegisterGreeterServer(s grpc.ServiceRegistrar, srv GreeterServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Greeter_ServiceDesc, srv)
+}
+
+func _Greeter_Healthz_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HealthzReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GreeterServer).Healthz(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Greeter_Healthz_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GreeterServer).Healthz(ctx, req.(*HealthzReq))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Greeter_SayHello_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -115,6 +149,10 @@ var Greeter_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "Hello.Greeter",
 	HandlerType: (*GreeterServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Healthz",
+			Handler:    _Greeter_Healthz_Handler,
+		},
 		{
 			MethodName: "SayHello",
 			Handler:    _Greeter_SayHello_Handler,

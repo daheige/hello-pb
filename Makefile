@@ -71,7 +71,7 @@ gen-node:
 	sh bin/nodejs-gen.sh
 
 gen-rust:
-	mkdir -p ${ROOT_DIR}/src
-	touch ${ROOT_DIR}/src/lib.rs
-	cargo build
-	@rm -rf ${ROOT_DIR}/src/google.api.rs
+	@echo "gen rust pb code"
+	@cargo build
+	@cargo fmt
+	@echo "gen rust pb code success"

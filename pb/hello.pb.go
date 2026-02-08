@@ -22,6 +22,102 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type HealthzReq struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	RequestId     string                 `protobuf:"bytes,1,opt,name=request_id,json=requestId,proto3" json:"request_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HealthzReq) Reset() {
+	*x = HealthzReq{}
+	mi := &file_hello_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HealthzReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthzReq) ProtoMessage() {}
+
+func (x *HealthzReq) ProtoReflect() protoreflect.Message {
+	mi := &file_hello_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthzReq.ProtoReflect.Descriptor instead.
+func (*HealthzReq) Descriptor() ([]byte, []int) {
+	return file_hello_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *HealthzReq) GetRequestId() string {
+	if x != nil {
+		return x.RequestId
+	}
+	return ""
+}
+
+type HealthzReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CurrentTime   string                 `protobuf:"bytes,1,opt,name=current_time,json=currentTime,proto3" json:"current_time,omitempty"`
+	Alive         bool                   `protobuf:"varint,2,opt,name=alive,proto3" json:"alive,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *HealthzReply) Reset() {
+	*x = HealthzReply{}
+	mi := &file_hello_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *HealthzReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HealthzReply) ProtoMessage() {}
+
+func (x *HealthzReply) ProtoReflect() protoreflect.Message {
+	mi := &file_hello_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HealthzReply.ProtoReflect.Descriptor instead.
+func (*HealthzReply) Descriptor() ([]byte, []int) {
+	return file_hello_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *HealthzReply) GetCurrentTime() string {
+	if x != nil {
+		return x.CurrentTime
+	}
+	return ""
+}
+
+func (x *HealthzReply) GetAlive() bool {
+	if x != nil {
+		return x.Alive
+	}
+	return false
+}
+
 // message 对应生成代码的 struct
 // 定义客户端请求的数据格式
 // @validator=HelloReq
@@ -37,7 +133,7 @@ type HelloReq struct {
 
 func (x *HelloReq) Reset() {
 	*x = HelloReq{}
-	mi := &file_hello_proto_msgTypes[0]
+	mi := &file_hello_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -49,7 +145,7 @@ func (x *HelloReq) String() string {
 func (*HelloReq) ProtoMessage() {}
 
 func (x *HelloReq) ProtoReflect() protoreflect.Message {
-	mi := &file_hello_proto_msgTypes[0]
+	mi := &file_hello_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -62,7 +158,7 @@ func (x *HelloReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HelloReq.ProtoReflect.Descriptor instead.
 func (*HelloReq) Descriptor() ([]byte, []int) {
-	return file_hello_proto_rawDescGZIP(), []int{0}
+	return file_hello_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *HelloReq) GetName() string {
@@ -83,7 +179,7 @@ type HelloReply struct {
 
 func (x *HelloReply) Reset() {
 	*x = HelloReply{}
-	mi := &file_hello_proto_msgTypes[1]
+	mi := &file_hello_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -95,7 +191,7 @@ func (x *HelloReply) String() string {
 func (*HelloReply) ProtoMessage() {}
 
 func (x *HelloReply) ProtoReflect() protoreflect.Message {
-	mi := &file_hello_proto_msgTypes[1]
+	mi := &file_hello_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -108,7 +204,7 @@ func (x *HelloReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HelloReply.ProtoReflect.Descriptor instead.
 func (*HelloReply) Descriptor() ([]byte, []int) {
-	return file_hello_proto_rawDescGZIP(), []int{1}
+	return file_hello_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *HelloReply) GetMessage() string {
@@ -122,13 +218,21 @@ var File_hello_proto protoreflect.FileDescriptor
 
 const file_hello_proto_rawDesc = "" +
 	"\n" +
-	"\vhello.proto\x12\x05Hello\x1a\x1cgoogle/api/annotations.proto\"\x1e\n" +
+	"\vhello.proto\x12\x05Hello\x1a\x1cgoogle/api/annotations.proto\"+\n" +
+	"\n" +
+	"HealthzReq\x12\x1d\n" +
+	"\n" +
+	"request_id\x18\x01 \x01(\tR\trequestId\"G\n" +
+	"\fHealthzReply\x12!\n" +
+	"\fcurrent_time\x18\x01 \x01(\tR\vcurrentTime\x12\x14\n" +
+	"\x05alive\x18\x02 \x01(\bR\x05alive\"\x1e\n" +
 	"\bHelloReq\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\"&\n" +
 	"\n" +
 	"HelloReply\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2Q\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2\x99\x01\n" +
 	"\aGreeter\x12F\n" +
+	"\aHealthz\x12\x11.Hello.HealthzReq\x1a\x13.Hello.HealthzReply\"\x13\x82\xd3\xe4\x93\x02\r\x12\v/v1/healthz\x12F\n" +
 	"\bSayHello\x12\x0f.Hello.HelloReq\x1a\x11.Hello.HelloReply\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/v1/say/{name}B\aZ\x05./;pbb\x06proto3"
 
 var (
@@ -143,16 +247,20 @@ func file_hello_proto_rawDescGZIP() []byte {
 	return file_hello_proto_rawDescData
 }
 
-var file_hello_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_hello_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_hello_proto_goTypes = []any{
-	(*HelloReq)(nil),   // 0: Hello.HelloReq
-	(*HelloReply)(nil), // 1: Hello.HelloReply
+	(*HealthzReq)(nil),   // 0: Hello.HealthzReq
+	(*HealthzReply)(nil), // 1: Hello.HealthzReply
+	(*HelloReq)(nil),     // 2: Hello.HelloReq
+	(*HelloReply)(nil),   // 3: Hello.HelloReply
 }
 var file_hello_proto_depIdxs = []int32{
-	0, // 0: Hello.Greeter.SayHello:input_type -> Hello.HelloReq
-	1, // 1: Hello.Greeter.SayHello:output_type -> Hello.HelloReply
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	0, // 0: Hello.Greeter.Healthz:input_type -> Hello.HealthzReq
+	2, // 1: Hello.Greeter.SayHello:input_type -> Hello.HelloReq
+	1, // 2: Hello.Greeter.Healthz:output_type -> Hello.HealthzReply
+	3, // 3: Hello.Greeter.SayHello:output_type -> Hello.HelloReply
+	2, // [2:4] is the sub-list for method output_type
+	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -169,7 +277,7 @@ func file_hello_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_hello_proto_rawDesc), len(file_hello_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
