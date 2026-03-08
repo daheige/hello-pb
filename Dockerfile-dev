@@ -1,4 +1,4 @@
-FROM rust:1.93.0-bullseye
+FROM rust:1.94.0-bullseye
 
 LABEL authors="daheige"
 
@@ -9,7 +9,7 @@ ENV LANG=C.UTF-8
 
 # 设置nodejs和go版本
 ENV NODEJS_VERSION=22 \
-    GO_VERSION=1.24.11 \
+    GO_VERSION=1.24.13 \
     GOPATH=/go \
     GOROOT=/usr/local/go \
     CGO_ENABLED=0 \
