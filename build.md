@@ -1,4 +1,6 @@
-use std::ffi::OsStr;
+# build.rs
+简单的写法如下：
+```rust
 use std::fs;
 use std::io::Write;
 use std::path::Path;
@@ -48,42 +50,33 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let _ = mod_file.write(header.as_bytes());
 
     // 再将模块名写入mod_file中，格式：pub mod xxx;
-    // 先读取src中的文件，然后将模块名字写入mod_file文件中
-    let ext: Option<&OsStr> = Some(&OsStr::new("rs")); // rust文件拓展名，不包含点
-    let lists = out_dir.read_dir().expect("failed to read src dir");
-    for entry_path in lists {
-        if entry_path.as_ref().unwrap().path().is_file() {
-            let path = entry_path.unwrap().path();
-            if path.extension().eq(&ext) {
-                let file = path.file_name().unwrap_or(OsStr::new(""));
-                let filename = file.to_str().unwrap();
-                if filename.contains("google.api") {
-                    // 跳过google.api.rs这样的文件
-                    fs::remove_file(out_dir.join(filename))?;
-                    continue;
-                }
-                if filename == "lib.rs" {
-                    // 跳过lib.rs文件
-                    continue;
-                }
+    let mut mods = String::new();
 
-                // 获取文件名，不包含拓展名，并将模块名字写入lib.rs中
-                let module = filename.replace(".rs", "");
-                mod_file
-                    .write(format!("pub mod {};\n", module).as_bytes())
-                    .expect("failed to write content to lib.rs");
+    // 这里读取到的proto文件名称，作为模块名称，可能有一些bug，例如：文件名包含了两个点
+    for proto in &proto_files {
+        // 获取rust文件名称，不包含.proto
+        let name = Path::new(proto)
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .ok_or("invalid proto")?;
 
-                // 为生成的message实现 serde encode/decode 功能
-                let filename = out_dir.join(filename);
-                let mut buffer = fs::read_to_string(&filename).unwrap();
-                buffer = buffer.replace(
-                    "prost::Message",
-                    "prost::Message, serde::Serialize, serde::Deserialize",
-                );
-                fs::write(&filename, buffer).expect("failed to write file content");
-            }
-        }
+        // 为生成的message实现 serde encode/decode 功能
+        let filename = out_dir.join(format!("{}.rs", name));
+        let mut buffer = fs::read_to_string(&filename).unwrap();
+        buffer = buffer.replace(
+            "prost::Message",
+            "prost::Message, serde::Serialize, serde::Deserialize",
+        );
+        fs::write(&filename, buffer).expect("failed to write file content");
+
+        mods.push_str(&format!("pub mod {};\n", name));
     }
+
+    mod_file.write(mods.as_bytes())?;
+
+    // 5.删除不需要的google.api.rs
+    let _ = fs::remove_file(out_dir.join("google.api.rs"));
 
     Ok(())
 }
+```

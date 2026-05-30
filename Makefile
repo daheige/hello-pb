@@ -72,6 +72,9 @@ gen-node:
 
 gen-rust:
 	@echo "gen rust pb code"
+	@mkdir -p src
+	@rm -rf src/*.rs
+	@touch src/lib.rs
 	@cargo build
 	@cargo fmt
 	@echo "gen rust pb code success"
