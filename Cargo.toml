@@ -1,6 +1,6 @@
 [package]
 name = "hello-pb"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2024"
 
 [dependencies]
@@ -8,6 +8,7 @@ tonic = "0.14.6"
 prost = "0.14.3"
 tonic-prost = "0.14.6"
 serde = { version = "1.0.228", features = ["derive"] }
+async-trait = "0.1.89"
 
 [build-dependencies]
 # note: Must be the same as the tonic version

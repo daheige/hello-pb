@@ -8,15 +8,15 @@ CONTAINER_NAME :=${IMAGE_NAME}-svc
 VERSION :=v1.0
 DEV_IMAGE_NAME :=grpc-dev
 ROOT_DIR=$(shell pwd)
-DEV_IMAGE_SHA := $(shell docker images -q ${DEV_IMAGE_NAME}:${VERSION})
 
 # 开发环境镜像构建
 build-dev:
-	@if [ "${DEV_IMAGE_SHA}" ]; then \
-        echo "current ${DEV_IMAGE_NAME}:${VERSION} image sha: ${DEV_IMAGE_SHA}";\
-    else \
-        docker build . -f Dockerfile-dev -t ${DEV_IMAGE_NAME}:${VERSION};\
-    fi
+	@DEV_IMAGE_SHA=$$(docker images -q ${DEV_IMAGE_NAME}:${VERSION}); \
+	if [ -n "$$DEV_IMAGE_SHA" ]; then \
+		echo "current ${DEV_IMAGE_NAME}:${VERSION} image sha: $$DEV_IMAGE_SHA"; \
+	else \
+		docker build . -f Dockerfile-dev -t ${DEV_IMAGE_NAME}:${VERSION}; \
+	fi
 
 # 重新构建grpc-dev 开发环境镜像
 rebuild-dev:
