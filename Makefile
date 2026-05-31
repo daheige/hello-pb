@@ -70,6 +70,7 @@ gen-pb:
 gen-node:
 	sh bin/nodejs-gen.sh
 
+# 如果运行cargo fmt错误，就手动执行 rustup component add rustfmt 命令安装 rustfmt
 gen-rust:
 	@echo "gen rust pb code"
 	@mkdir -p src

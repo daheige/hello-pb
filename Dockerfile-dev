@@ -41,6 +41,9 @@ RUN echo "deb http://mirrors.aliyun.com/debian bullseye main" > /etc/apt/sources
     ln -s /usr/local/go/bin/go /usr/bin/go &&  \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# add rust fmt tools
+RUN rustup component add rustfmt
+
 # go gRPC tools
 RUN go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest && \
     go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest && \
